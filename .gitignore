@@ -1,4 +1,5 @@
 node_modules/
 *.log
 .env
-./db/data/
+/db/data/
+/backend/venv/
