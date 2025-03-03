@@ -2,6 +2,8 @@ from sqlalchemy.orm import Session
 from internal.models.db_models import User, Material, Tracking, Failure
 from internal.schemas import UserCreate, MaterialCreate, TrackingCreate, FailureCreate
 import hashlib
+from fpdf import FPDF
+import openpyxl
 
 # CRUD para Usuários
 def get_users(db: Session):
@@ -42,7 +44,13 @@ def create_new_material(db: Session, material: MaterialCreate):
 def get_tracking(db: Session):
     return db.query(Tracking).all()
 
-def create_tracking(db: Session, tracking: TrackingCreate):
+def get_tracking_by_serial(db: Session, serial: str):
+    return db.query(Tracking).join(Material).filter(Material.serial == serial).all()
+
+def get_failures_by_serial(db: Session, serial: str):
+    return db.query(Failure).join(Tracking).join(Material).filter(Material.serial == serial).all()
+
+def create_new_tracking(db: Session, tracking: TrackingCreate):
     db_tracking = Tracking(material_id=tracking.material_id, stage=tracking.stage, status=tracking.status)
     db.add(db_tracking)
     db.commit()
@@ -59,3 +67,34 @@ def create_failure(db: Session, failure: FailureCreate):
     db.commit()
     db.refresh(db_failure)
     return db_failure
+
+# Funções para gerar relatórios
+def generate_pdf_report(db: Session):
+    tracking_data = get_tracking(db)
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt="Relatório de Rastreamento", ln=True, align='C')
+
+    for track in tracking_data:
+        pdf.cell(200, 10, txt=f"ID: {track.id}, Material ID: {track.material_id}, Etapa: {track.stage}, Status: {track.status}, Data: {track.created_at}", ln=True)
+
+    file_path = "/tmp/report.pdf"
+    pdf.output(file_path)
+    return file_path
+
+def generate_xlsx_report(db: Session):
+    tracking_data = get_tracking(db)
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = "Relatório de Rastreamento"
+
+    headers = ["ID", "Material ID", "Etapa", "Status", "Data"]
+    sheet.append(headers)
+
+    for track in tracking_data:
+        sheet.append([track.id, track.material_id, track.stage, track.status, track.created_at])
+
+    file_path = "/tmp/report.xlsx"
+    workbook.save(file_path)
+    return file_path
