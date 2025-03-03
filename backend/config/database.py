@@ -10,14 +10,14 @@ for attempt in range(10):
   try:
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
     connection = engine.connect()
-    print(f"✅ Conectado ao banco de dados na tentativa {attempt + 1}!")
+    print(f"Conectado ao banco de dados na tentativa {attempt + 1}!")
     connection.close()
     break
   except psycopg2.OperationalError:
-    print(f"⏳ Banco de dados não está pronto, tentativa {attempt + 1}/10...")
+    print(f"Banco de dados não está pronto, tentativa {attempt + 1}/10...")
     time.sleep(5)
 else:
-  print("❌ Falha ao conectar ao banco de dados após 10 tentativas!")
+  print("Falha ao conectar ao banco de dados após 10 tentativas!")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
