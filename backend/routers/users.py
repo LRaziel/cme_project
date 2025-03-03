@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from config.database import get_db
-from internal.crud import get_users, create_user, get_users_by_role
+from internal.crud import get_users, create_new_user, get_users_by_role
 from internal.schemas import UserCreate, UserResponse
 
 router = APIRouter(prefix="/users", tags=["Usuários"])
@@ -19,4 +19,4 @@ def list_users_by_role(role: str, db: Session = Depends(get_db)):
 
 @router.post("/", response_model=UserResponse)
 def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    return create_user(db, user)
+    return create_new_user(db, user)

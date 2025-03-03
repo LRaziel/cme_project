@@ -23,11 +23,11 @@ class MaterialCreate(BaseModel):
     name: str
     type: str
     expiration_date: date
-    serial: str
 
 # Schema para resposta de material
 class MaterialResponse(MaterialCreate):
     id: int
+    serial: str
 
     class Config:
         from_attributes = True
