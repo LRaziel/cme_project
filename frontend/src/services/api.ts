@@ -35,6 +35,16 @@ export const getAllMaterials = async () => {
   }
 };
 
+export const getAllMaterialsWithTracking = async () => {
+  try {
+    const response = await api.get('/materials/with-tracking');
+    return response.data as Material[];
+  } catch (error) {
+    console.error('Error fetching materials with tracking:', error);
+    throw error;
+  }
+};
+
 export const createMaterial = async (material: { name: string; type: string; expiration_date: string }) => {
   try {
     const response = await api.post('/materials', material);

@@ -10,7 +10,8 @@ export interface Material {
   type: string;
   expiration_date: string;
   serial: string;
-  tracking_info: TrackingInfo[];
+  stage: string;
+  status: string;
 }
 
 export interface TrackingCreate {

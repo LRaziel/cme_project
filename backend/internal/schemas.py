@@ -28,6 +28,8 @@ class MaterialCreate(BaseModel):
 class MaterialResponse(MaterialCreate):
     id: int
     serial: str
+    stage:str
+    status: str
 
     class Config:
         from_attributes = True

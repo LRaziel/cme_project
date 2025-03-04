@@ -40,6 +40,34 @@ def create_new_material(db: Session, material: MaterialCreate):
     db.refresh(db_material)
     return db_material
 
+def get_materials_with_tracking(db: Session):
+    materials = db.query(Material).all()
+    result = []
+    for material in materials:
+      tracking_records = get_tracking_by_serial(db, material.serial)
+      for tracking in tracking_records:
+        if tracking.material_id == material.id:
+          result.append({
+            "id": material.id,
+            "name": material.name,
+            "type": material.type,
+            "expiration_date": material.expiration_date,
+            "serial": material.serial,
+            "stage": tracking.stage,
+            "status": tracking.status,
+          })
+        else:
+          result.append({
+            "id": material.id,
+            "name": material.name,
+            "type": material.type,
+            "expiration_date": material.expiration_date,
+            "serial": material.serial,
+            "stage": None,
+            "status": None,
+          })
+    return result
+
 # CRUD para Rastreamento
 def get_tracking(db: Session):
     return db.query(Tracking).all()
