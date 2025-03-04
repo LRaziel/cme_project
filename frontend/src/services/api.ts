@@ -24,4 +24,14 @@ export const createUser = async (user: { name: string; email: string; password: 
   }
 };
 
+export const createMaterial = async (material: { name: string; type: string; expiration_date: string }) => {
+  try {
+    const response = await api.post('/materials', material);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating material:', error);
+    throw error;
+  }
+};
+
 export default api;
