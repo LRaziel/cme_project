@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Date, ForeignKey, TIMESTAMP
 from sqlalchemy.orm import relationship
 from config.database import Base
 
+# Modelo de usuário
 class User(Base):
     __tablename__ = "users"
 
@@ -12,6 +13,7 @@ class User(Base):
     role = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, nullable=False)
 
+# Modelo de material
 class Material(Base):
     __tablename__ = "materials"
 
@@ -22,6 +24,7 @@ class Material(Base):
     serial = Column(String, unique=True, nullable=False)
     created_at = Column(TIMESTAMP, nullable=False)
 
+# Modelo de rastreamento
 class Tracking(Base):
     __tablename__ = "tracking"
 
@@ -31,6 +34,7 @@ class Tracking(Base):
     status = Column(String, nullable=False)
     created_at = Column(TIMESTAMP, nullable=False)
 
+# Modelo de falha
 class Failure(Base):
     __tablename__ = "failures"
 

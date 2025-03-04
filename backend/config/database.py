@@ -6,6 +6,7 @@ import psycopg2
 
 SQLALCHEMY_DATABASE_URL = "postgresql://cme_user:cme_password@db/cme_db"
 
+# Tenta conectar ao banco de dados com várias tentativas
 for attempt in range(10):
   try:
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
@@ -22,6 +23,7 @@ else:
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
+# Obtém uma sessão de banco de dados
 def get_db():
     db = SessionLocal()
     try:

@@ -9,6 +9,7 @@ const TrackingTable: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState('');
   const [stageFilter, setStageFilter] = useState('');
 
+  // Função para buscar todos os materiais com rastreamento
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
@@ -23,10 +24,12 @@ const TrackingTable: React.FC = () => {
     fetchMaterials();
   }, []);
 
+  // Função para filtrar materiais
   useEffect(() => {
     filterMaterials();
   }, [serialFilter, statusFilter, stageFilter]);
 
+  // Função para aplicar filtros nos materiais
   const filterMaterials = () => {
     let filtered = [...materials];
 

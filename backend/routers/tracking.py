@@ -7,10 +7,12 @@ from fastapi.responses import FileResponse
 
 router = APIRouter(prefix="/tracking", tags=["Rastreamento"])
 
+# Lista todos os rastreamentos
 @router.get("/", response_model=list[TrackingResponse])
 def list_tracking(db: Session = Depends(get_db)):
     return get_tracking(db)
 
+# Lista rastreamentos por serial
 @router.get("/{serial}", response_model=list[TrackingResponse])
 def list_tracking_by_serial(serial: str, db: Session = Depends(get_db)):
     tracking = get_tracking_by_serial(db, serial)
@@ -18,6 +20,7 @@ def list_tracking_by_serial(serial: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Tracking not found")
     return tracking
 
+# Lista falhas por serial
 @router.get("/{serial}/failures", response_model=list[FailureResponse])
 def list_failures_by_serial(serial: str, db: Session = Depends(get_db)):
     failures = get_failures_by_serial(db, serial)
@@ -25,15 +28,18 @@ def list_failures_by_serial(serial: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Failures not found")
     return failures
 
+# Cria um novo rastreamento
 @router.post("/", response_model=TrackingResponse)
 def create_tracking(tracking: TrackingCreate, db: Session = Depends(get_db)):
     return create_new_tracking(db, tracking)
 
+# Gera relatório PDF
 @router.get("/report/pdf", response_class=FileResponse)
 def get_pdf_report(db: Session = Depends(get_db)):
     file_path = generate_pdf_report(db)
     return FileResponse(file_path, media_type='application/pdf', filename='report.pdf')
 
+# Gera relatório XLSX
 @router.get("/report/xlsx", response_class=FileResponse)
 def get_xlsx_report(db: Session = Depends(get_db)):
     file_path = generate_xlsx_report(db)

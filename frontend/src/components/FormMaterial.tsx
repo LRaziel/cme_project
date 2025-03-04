@@ -8,6 +8,7 @@ const FormMaterial: React.FC = () => {
   const [type, setType] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {

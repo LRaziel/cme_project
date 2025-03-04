@@ -6,10 +6,12 @@ from internal.schemas import MaterialCreate, MaterialResponse
 
 router = APIRouter(prefix="/materials", tags=["Materiais"])
 
+# Lista todos os materiais
 @router.get("/", response_model=list[MaterialResponse])
 def list_materials(db: Session = Depends(get_db)):
     return get_materials(db)
 
+# Lista materiais por etapa
 @router.get("/stage/{stage}", response_model=list[MaterialResponse])
 def list_materials_by_stage(stage: str, db: Session = Depends(get_db)):
     materials = get_materials_by_stage(db, stage)
@@ -17,6 +19,7 @@ def list_materials_by_stage(stage: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="No materials found in this stage")
     return materials
 
+# Lista materiais por status
 @router.get("/status/{status}", response_model=list[MaterialResponse])
 def list_materials_by_status(status: str, db: Session = Depends(get_db)):
     materials = get_materials_by_status(db, status)
@@ -24,10 +27,12 @@ def list_materials_by_status(status: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="No materials found with this status")
     return materials
 
+# Cria um novo material
 @router.post("/", response_model=MaterialResponse)
 def create_material(material: MaterialCreate, db: Session = Depends(get_db)):
     return create_new_material(db, material)
 
+# Lista materiais com rastreamento
 @router.get("/with-tracking", response_model=list[MaterialResponse])
 def list_materials_with_tracking(db: Session = Depends(get_db)):
     return get_materials_with_tracking(db)

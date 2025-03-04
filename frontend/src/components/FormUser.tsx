@@ -9,6 +9,7 @@ const FormUser: React.FC = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {

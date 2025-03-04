@@ -10,6 +10,7 @@ const FormTracking: React.FC = () => {
   const [stage, setStage] = useState('');
   const [status, setStatus] = useState('');
 
+  // Função para buscar todos os materiais
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
@@ -23,6 +24,7 @@ const FormTracking: React.FC = () => {
     fetchMaterials();
   }, []);
 
+  // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {

@@ -5,6 +5,7 @@ const api = axios.create({
   baseURL: 'http://localhost:8080',
 });
 
+// Função para buscar todos os usuários
 export const getAllUsers = async () => {
   try {
     const response = await api.get('/users');
@@ -15,6 +16,7 @@ export const getAllUsers = async () => {
   }
 };
 
+// Função para criar um novo usuário
 export const createUser = async (user: { name: string; email: string; password: string; role: string }) => {
   try {
     const response = await api.post('/users', user);
@@ -25,6 +27,7 @@ export const createUser = async (user: { name: string; email: string; password: 
   }
 };
 
+// Função para buscar todos os materiais
 export const getAllMaterials = async () => {
   try {
     const response = await api.get('/materials');
@@ -35,6 +38,7 @@ export const getAllMaterials = async () => {
   }
 };
 
+// Função para buscar todos os materiais com rastreamento
 export const getAllMaterialsWithTracking = async () => {
   try {
     const response = await api.get('/materials/with-tracking');
@@ -45,6 +49,7 @@ export const getAllMaterialsWithTracking = async () => {
   }
 };
 
+// Função para criar um novo material
 export const createMaterial = async (material: { name: string; type: string; expiration_date: string }) => {
   try {
     const response = await api.post('/materials', material);
@@ -55,6 +60,7 @@ export const createMaterial = async (material: { name: string; type: string; exp
   }
 };
 
+// Função para criar um novo rastreamento
 export const createTracking = async (tracking: TrackingCreate) => {
   try {
     const response = await api.post('/tracking', tracking);
