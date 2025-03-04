@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Material, TrackingCreate } from '../interfaces/interfaces';
 
 const api = axios.create({
   baseURL: 'http://localhost:8080',
@@ -24,12 +25,32 @@ export const createUser = async (user: { name: string; email: string; password: 
   }
 };
 
+export const getAllMaterials = async () => {
+  try {
+    const response = await api.get('/materials');
+    return response.data as Material[];
+  } catch (error) {
+    console.error('Error fetching materials:', error);
+    throw error;
+  }
+};
+
 export const createMaterial = async (material: { name: string; type: string; expiration_date: string }) => {
   try {
     const response = await api.post('/materials', material);
     return response.data;
   } catch (error) {
     console.error('Error creating material:', error);
+    throw error;
+  }
+};
+
+export const createTracking = async (tracking: TrackingCreate) => {
+  try {
+    const response = await api.post('/tracking', tracking);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating tracking:', error);
     throw error;
   }
 };

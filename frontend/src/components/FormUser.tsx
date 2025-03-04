@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { createUser } from '../services/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const FormUser: React.FC = () => {
   const [name, setName] = useState('');
@@ -74,7 +76,9 @@ const FormUser: React.FC = () => {
           </select>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">Create User</button>
+      <button type="submit" className="btn btn-primary w-25">
+        <FontAwesomeIcon icon={faCheck} />
+      </button>
     </form>
   );
 };

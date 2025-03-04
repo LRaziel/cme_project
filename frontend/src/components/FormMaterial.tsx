@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { createMaterial } from '../services/api';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const FormMaterial: React.FC = () => {
   const [name, setName] = useState('');
@@ -61,7 +63,9 @@ const FormMaterial: React.FC = () => {
           />
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">Create Material</button>
+      <button type="submit" className="btn btn-primary w-25">
+        <FontAwesomeIcon icon={faCheck} />
+      </button>
     </form>
   );
 };

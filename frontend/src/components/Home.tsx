@@ -2,6 +2,7 @@ import React from 'react';
 import FormUser from './FormUser';
 import FormMaterial from './FormMaterial';
 import FormTracking from './FormTracking';
+import TrackingTable from './TrackingTable';
 
 const Home: React.FC = () => {
   const mainsGrid: React.CSSProperties = {
@@ -72,6 +73,10 @@ const Home: React.FC = () => {
 
             <div className="col" style={formTracking}>
               <FormTracking />
+            </div>
+
+            <div>
+              <TrackingTable />
             </div>
           </div>
         </div>
