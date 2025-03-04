@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    border: '1px solid black',
+    // border: '1px solid black',
   };
 
   const title: React.CSSProperties = {
