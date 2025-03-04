@@ -29,3 +29,10 @@ services:
       - "8080:8000"
     environment:
       DATABASE_URL: "postgresql://cme_user:cme_password@db/cme_db"
+
+  frontend:
+    build: ./frontend
+    container_name: cme_frontend
+    restart: always
+    ports:
+      - "3030:3000"
